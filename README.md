@@ -15,4 +15,7 @@ BONUS
 - [ ] Add levels and bosses
 - [ ] Add leaderboard
 - [ ] Possibly add user movement for an additional level of interaction
+- [ ] User health indicated by words, and enemies deal damage by 'typing'
+
+## Wireframe
 
