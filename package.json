@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "description": "## Background and Overview Recently I became the proud new owner of a brand new mechanical keyboard. It is obviously much diferent from my last one, and I wanted a way to quickly adapt to it. So I figured, why not make a game out of it, and integrate my favorite franchise into it! The Empire Types back is an interactive game where the user pilots a starfighter and has to type to destroy enimy ships racing towards them. Upon completing the word on top of the enemy, that ship will be eliminated.",
   "main": "index.js",
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "webpack:watch": "webpack --watch --config webpack.dev.js",
+    "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
   },
   "repository": {
     "type": "git",
