@@ -20,3 +20,45 @@ BONUS
 ## Wireframe
 
 ![](Homepage.png)
+
+## Architecture and Technology
+
+* Canvas will be used for the display
+* Javascript will be used for the logic
+
+### File Structure
+
+* /dist 
+  * …
+* /src
+  * …
+* index.html
+* .gitignore
+* node_modules
+* package.json
+* package.lock.json
+* postcss.config.js
+* README.md
+* webpack.common.js
+* webpack.dev.js
+* webpack.prod.js
+
+
+* src
+  * /assets
+    sprites.png
+    background
+    music
+  *index.js
+  * /js
+  * [...]
+  * /scss
+  * [...]
+  
+  ## Implementation Timeline
+  
+  Aug 17: Complete basic setup of project as well as a skeleton of the files. Conclude research if needed. Begin working on the game logic.
+  
+  Aug 18: Continue to work on the logic if necesarry. Then move onto the enemy movement and spawn rates. Hopefully end with a user model and words ontop of enemies.
+  
+  Aug 19: Implement the game logic to work with the animations and make the user model shoot at the enemy models. Hopefully finish the game and develop the finishing touched with design.
