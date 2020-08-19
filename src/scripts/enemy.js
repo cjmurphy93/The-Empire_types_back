@@ -1,8 +1,8 @@
 var randomWords = require('random-words');
-import tieFighter from '../assets/tie_fighter.png';
 
-var shipImg = new Image;
-shipImg.src = tieFighter;
+
+var shipImg = new Image();
+shipImg.src = './src/assets/tie_fighter.png';
 
 export default class Enemy {
     constructor(canvas, ctx) {
