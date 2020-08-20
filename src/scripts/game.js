@@ -6,7 +6,7 @@ export default class Game {
         this.canvas = canvas;
         this.ctx = ctx;
         this.background = new Background(ctx, 1.0);
-        this.ship = new Enemy(canvas, ctx, 1.0)
+        this.ship = new Enemy(canvas, ctx, 2.0)
         this.animate = this.animate.bind(this);
     }
 

@@ -12,8 +12,8 @@ export default class Enemy {
         this.rendered = true;
         this.shipImg = new Image();
         this.shipImg.src = "./src/assets/tie_fighter.png";
-        this.shipPos = 0;
-        this.dx = 500
+        this.shipPos = -100;
+        this.dx = 450
         this.speed = speed;
     };
 
@@ -24,7 +24,7 @@ export default class Enemy {
 
     animate(){
         this.shipPos += this.speed;
-        if (this.shipPos === this.canvas.height) this.shipPos = 0;
+        if (this.shipPos === this.canvas.height) this.shipPos = -100;
         this.draw();
     }
 }
