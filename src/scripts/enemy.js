@@ -1,13 +1,30 @@
 var randomWords = require('random-words');
 
 
-var shipImg = new Image();
-shipImg.src = './src/assets/tie_fighter.png';
+
 
 export default class Enemy {
-    constructor(canvas, ctx) {
+    constructor(canvas, ctx, speed) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.word = randomWords();
+        this.speed= speed;
+        this.rendered = true;
+        this.shipImg = new Image();
+        this.shipImg.src = "./src/assets/tie_fighter.png";
+        this.shipPos = 0;
+        this.dx = 500
+        this.speed = speed;
+    };
+
+    draw() {
+        this.ctx.drawImage(this.shipImg, this.dx, this.shipPos, 100, 100);
+
+    };
+
+    animate(){
+        this.shipPos += this.speed;
+        if (this.shipPos === this.canvas.height) this.shipPos = 0;
+        this.draw();
     }
 }
