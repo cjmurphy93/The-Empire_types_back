@@ -1,1 +1,1 @@
-{"version":3,"sources":["webpack:///./src/styles/index.scss"],"names":[],"mappings":"AAAA,OACI,WAIJ,WACI,8B","file":"main.css","sourcesContent":[".intro {\n    color: blue;\n   \n}\n\n.ship-game {\n    background: url(../assets/bg.png);\n}\n\n"],"sourceRoot":""}
+{"version":3,"sources":["webpack:///./src/styles/index.scss"],"names":[],"mappings":"AAAA,UACI,WACA,YACA,S","file":"main.css","sourcesContent":["html, body {\n    width: 100%;\n    height: 100%;\n    margin: 0;\n}\n\n\n\n"],"sourceRoot":""}
