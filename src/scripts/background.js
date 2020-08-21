@@ -1,5 +1,6 @@
 export default class Background {
-    constructor(ctx, speed) {
+    constructor(canvas, ctx, speed) {
+        this.canvas = canvas;
         this.ctx = ctx;
         this.speed = speed;
         this.backgroundImage = new Image();
@@ -8,10 +9,22 @@ export default class Background {
     };
 
     animate() {
-        this.ctx.clearRect(0, 0, 1000, 800);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.y += this.speed;
-        this.ctx.drawImage(this.backgroundImage, 0, this.y)
-        this.ctx.drawImage(this.backgroundImage, 0, this.y - 1200);
-        if (this.y === 1200) this.y = 0;
+        this.ctx.drawImage(
+          this.backgroundImage,
+          0,
+          this.y,
+          this.canvas.width,
+          this.canvas.height
+        );
+        this.ctx.drawImage(
+          this.backgroundImage,
+          0,
+          this.y - this.canvas.height,
+          this.canvas.width,
+          this.canvas.height
+        );
+        if (this.y === this.canvas.height) this.y = 0;
     };
 }
