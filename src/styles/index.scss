@@ -6,3 +6,20 @@ html, body {
 
 
 
+#bg-canvas {
+    position: absolute;
+    z-index: 0;
+}
+
+#ship-game {
+    position: absolute;
+    z-index: 10;
+}
+
+#player-screen {
+    position: absolute;
+    z-index: 20;
+}
+
+
+
