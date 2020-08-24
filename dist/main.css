@@ -1,3 +1,3 @@
-html,body{width:100%;height:100%;margin:0}
+html,body{width:100%;height:100%;margin:0}#bg-canvas{position:absolute;z-index:0}#ship-game{position:absolute;z-index:10}#player-screen{position:absolute;z-index:20}#input-section{position:absolute;z-index:100;top:calc(100vh * (165/222));left:calc(100vw * (101/256));width:calc(100vw * (54/256));height:calc(100vh * (10/222))}#player-word{width:calc(100vw * (54/256));height:calc(100vh * (10/222));padding:0;border:none;background:transparent;color:#5ac53a;text-align:center;font-size:calc(100vh * (7/222))}
 
 /*# sourceMappingURL=main.css.map*/
