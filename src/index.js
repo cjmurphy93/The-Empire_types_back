@@ -5,17 +5,32 @@ import Game from './scripts/game';
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById("ship-game");
     const ctx = canvas.getContext('2d');
+    const bgCanvas = document.getElementById("bg-canvas");
+    const bgCtx = bgCanvas.getContext('2d');
+    const pCanvas = document.getElementById("player-screen");
+    const pCtx = pCanvas.getContext('2d');
 
     const inputSection = document.getElementById("input-section");
     
     const playerWord = document.getElementById('player-word');
+    playerWord.autofocus = true;
 
     inputSection.addEventListener('submit', handleSubmit);
+    const newGame = new Game(canvas, ctx, bgCtx, pCtx);
     
-    document.addEventListener("keypress", handleEnter);
+    document.addEventListener("keypress", removeSplash);
 
-    const newGame = new Game(canvas, ctx);
-    newGame.start();
+    function removeSplash(e) {
+        if (e.key === 'Enter') {
+            const splash = document.getElementById("splash");
+            splash.style.display = 'none';
+            document.removeEventListener("keypress", removeSplash)
+            newGame.start();
+            playerWord.focus();
+        }
+    }
+
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -23,10 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSection.reset();
     };
 
-    function handleEnter(e){
-        if (e.key === 'Enter'){
-            handleSubmit(e);
-        }
-    };
+
 
 });

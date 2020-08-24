@@ -10,7 +10,7 @@ export default class Enemy {
         this.shipImg = new Image();
         this.shipImg.src = "./src/assets/tie_fighter.png";
         this.shipPos = -100;
-        this.dx = 450;
+        this.dx = Math.floor(Math.random() * this.canvas.width);
     };
 
     draw() {
