@@ -4,6 +4,17 @@ html, body {
     margin: 0;
 }
 
+.splash-page {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
 
 
 #bg-canvas {
