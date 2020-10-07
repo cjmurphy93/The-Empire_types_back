@@ -14,6 +14,8 @@ export default class Game {
         this.ships = [];
         this.player = new Player(canvas, pCtx);
         this.words = [];
+        this.startPositions = [];
+        this.usedStartPos = [];
         this.animate = this.animate.bind(this);
         this.animateBackground = this.animateBackground.bind(this);
         this.start = this.start.bind(this);
