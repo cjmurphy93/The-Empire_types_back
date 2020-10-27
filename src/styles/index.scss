@@ -35,7 +35,7 @@ html, body {
 #input-section {
     position: absolute;
     z-index: 100;
-    top: calc(100vh * (165/222));
+    top: calc(100vh * (164/222));
     left: calc(100vw * (101/256));
     width: calc(100vw * (54/256));
     height: calc(100vh * (10/222));
@@ -46,6 +46,7 @@ html, body {
     height: calc(100vh * (10/222));
     padding: 0;
     border: none;
+    outline: none;
     background: transparent;
     color: #5AC53A;
     text-align: center;

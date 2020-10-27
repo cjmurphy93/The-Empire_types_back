@@ -40,6 +40,7 @@ export default class Game {
             const ship = this.ships[i];
             if (ship.rendered){
                 ship.animate();
+                if (ship.dz >= 1) this.player.health -= 1;
             } else {
                 this.ships.splice(i, 1);
                 this.words.splice(i, 1);
@@ -68,13 +69,16 @@ export default class Game {
         const playerWord = document.getElementById('player-word');
         playerWord.autofocus = true;
         this.canvas.addEventListener('click', ()=> playerWord.focus());
+        document.getElementById('bg-canvas').addEventListener('click', ()=> playerWord.focus());
+        document.getElementById('player-screen').addEventListener('click', ()=> playerWord.focus());
+
 
         setInterval(this.animateBackground, 125);
         this.animate();
     }
 
     createEnemy(canvas, ctx) {
-        debugger
+        // debugger
         if (this.startPositions.length) {
             let enemy = new Enemy(canvas, ctx, .01, this.startPositions[0]);
             this.ships.push(enemy);

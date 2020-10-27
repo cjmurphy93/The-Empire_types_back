@@ -15,12 +15,14 @@ export default class Enemy {
     };
 
     draw() {
-        debugger
-        this.ctx.drawImage(this.shipImg, ( this.dx * this.canvas.width), ((this.shipPos[1] / 222) * this.canvas.height), (this.dz * (this.canvas.width * (60 / 256))), (this.dz * (this.canvas.height * (60 / 222))));
+        
+        this.ctx.drawImage(this.shipImg, ( this.dx * this.canvas.width), ((this.shipPos[1] / 222) * this.canvas.height), (this.dz * (this.canvas.width * (40 / 256))), (this.dz * (this.canvas.height * (40 / 222))));
         this.ctx.fillStyle = "#FFFFFF";
         this.ctx.font = '20px Red Rose';
-        const wordPos = (100 - (this.word.length * 20)) / 2;
-        this.ctx.fillText(this.word, (wordPos + ((this.shipPos[0] / 256) * this.canvas.width)), ((this.shipPos[1] / 222) * this.canvas.height));
+        // const wordPos = (100 - (this.word.length * 20)) / 2;
+        this.ctx.textAlign = "center";
+        this.ctx.fillText(this.word, (( this.dx * this.canvas.width) + (this.dz *(this.canvas.width * 20/256))), ((this.shipPos[1] / 222) * this.canvas.height));
+        // debugger
     };
 
     animate(){
