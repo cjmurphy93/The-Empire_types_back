@@ -20,11 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.addEventListener("keypress", removeSplash);
 
+    const startBtn = document.getElementById('start');
+    startBtn.addEventListener("click", removeSplash);
     function removeSplash(e) {
-        if (e.key === 'Enter') {
+        // debugger
+        if ((e.key === 'Enter') || (e.type === "click")) {
             const splash = document.getElementById("splash");
             splash.style.display = 'none';
-            document.removeEventListener("keypress", removeSplash)
+            document.removeEventListener("keypress", removeSplash);
+            startBtn.removeEventListener("click", removeSplash);
             newGame.start();
             playerWord.focus();
         }
