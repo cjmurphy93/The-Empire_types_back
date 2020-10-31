@@ -14,13 +14,15 @@ export default class Game {
         this.ships = [];
         this.player = new Player(canvas, pCtx);
         this.words = [];
-        this.startPositions = [[96, 74]];
+        this.startPositions = [[96, 80], [172, 70], [63, 30], [120, 35], [197, 20]];
         this.usedStartPos = [];
         this.animate = this.animate.bind(this);
         this.animateBackground = this.animateBackground.bind(this);
         this.start = this.start.bind(this);
         this.createEnemy = this.createEnemy.bind(this);
         this.generateEnemies = this.generateEnemies.bind(this);
+        this.generateAttacks = this.generateAttacks.bind(this);
+        this.enemyAttack = this.enemyAttack.bind(this);
     }
 
     animateBackground() {
@@ -40,7 +42,11 @@ export default class Game {
             const ship = this.ships[i];
             if (ship.rendered){
                 ship.animate();
-                if (ship.dz >= 1) this.player.health -= 1;
+                // if (ship.dz >= 1) {
+                //     this.player.health -= 1;
+                //     ship.attacking = true;
+                //     // debugger
+                // }
             } else {
                 this.ships.splice(i, 1);
                 this.words.splice(i, 1);
@@ -53,6 +59,7 @@ export default class Game {
     start() {
         if (!this.startGame) {
             this.generateEnemies();
+            this.generateAttacks();
 
         this.startGame = true;
         const playerWord = document.getElementById('player-word');
@@ -63,6 +70,7 @@ export default class Game {
         window.onfocus = () => {
             this.focused = true;
             this.generateEnemies();
+            this.generateAttacks();
 
         }
 
@@ -96,6 +104,26 @@ export default class Game {
                     this.createEnemy(this.canvas, this.ctx);
                     this.generateEnemies();
             }, delay - .2);
+        }
+    }
+
+    generateAttacks () {
+                let delay = Math.floor(Math.random() * 5000);
+        if (this.focused) {
+            setTimeout(()=>{
+                // if (!.this.startPositions)
+                    // this.createEnemy(this.canvas, this.ctx);
+                    if (this.ships.length) this.enemyAttack();
+                    this.generateAttacks();
+            }, delay - .2);
+        }
+    }
+
+    enemyAttack() {
+        let ship = this.ships[Math.floor(Math.random() * this.ships.length)];
+        if (!ship.attacking && ship.dz >= 1) {
+            ship.attacking = true;
+            this.player.health -=1;
         }
     }
 

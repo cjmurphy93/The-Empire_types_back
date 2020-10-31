@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startBtn = document.getElementById('start');
     startBtn.addEventListener("click", removeSplash);
+    
     function removeSplash(e) {
         // debugger
         if ((e.key === 'Enter') || (e.type === "click")) {
