@@ -14,7 +14,7 @@ export default class Game {
         this.ships = [];
         this.player = new Player(canvas, pCtx);
         this.words = [];
-        this.startPositions = [[96, 80], [172, 70], [63, 30], [120, 35], [197, 20]];
+        this.startPositions = [[96, 80], [172, 70], [63, 30], [120, 25], [197, 20]];
         this.usedStartPos = [];
         this.animate = this.animate.bind(this);
         this.animateBackground = this.animateBackground.bind(this);
@@ -86,7 +86,6 @@ export default class Game {
     }
 
     createEnemy(canvas, ctx) {
-        // debugger
         if (this.startPositions.length) {
             let enemy = new Enemy(canvas, ctx, .01, this.startPositions[0]);
             this.ships.push(enemy);
@@ -100,7 +99,6 @@ export default class Game {
         let delay = Math.floor(Math.random() * 5000);
         if (this.focused) {
             setTimeout(()=>{
-                // if (!.this.startPositions)
                     this.createEnemy(this.canvas, this.ctx);
                     this.generateEnemies();
             }, delay - .2);
@@ -111,8 +109,6 @@ export default class Game {
                 let delay = Math.floor(Math.random() * 5000);
         if (this.focused) {
             setTimeout(()=>{
-                // if (!.this.startPositions)
-                    // this.createEnemy(this.canvas, this.ctx);
                     if (this.ships.length) this.enemyAttack();
                     this.generateAttacks();
             }, delay - .2);
@@ -132,6 +128,7 @@ export default class Game {
         if (i != -1) {
             this.startPositions.push(this.ships[i].shipPos);
             this.ships[i].rendered = false;
+            this.player.score += 1;
         }
     }
 
