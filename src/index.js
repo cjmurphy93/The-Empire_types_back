@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        newGame.checkWord(playerWord.value.trim());
+        newGame.checkWord(playerWord.value.toLowerCase().trim());
         inputSection.reset();
     };
 
