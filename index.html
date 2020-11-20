@@ -28,6 +28,29 @@
     <canvas id="bg-canvas"></canvas>
     <canvas id="ship-game"></canvas>
     <canvas id="player-screen"></canvas>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    
+
+    
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCwgZPZIAN-oBIcYnxU8cdoB07zheYEkek",
+            authDomain: "the-empire-types-back.firebaseapp.com",
+            databaseURL: "https://the-empire-types-back.firebaseio.com",
+            projectId: "the-empire-types-back",
+            storageBucket: "the-empire-types-back.appspot.com",
+            messagingSenderId: "1000485639768",
+            appId: "1:1000485639768:web:bb350ae944aba60c0cdc2d",
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
     <script src="./dist/main.js"></script>
     <form id=input-section>
         <input type="text" id='player-word' autocomplete="off" autocorrect="off" >
