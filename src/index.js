@@ -1,5 +1,6 @@
 import "./styles/index.scss";
 import Game from './scripts/game';
+import * as firebaseAPI from './scripts/firebasedb';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -42,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         newGame.checkWord(playerWord.value.toLowerCase().trim());
         inputSection.reset();
     };
+
+    const leaderboard = document.getElementById('leaderboard');
 
 
 
