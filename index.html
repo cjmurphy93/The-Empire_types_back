@@ -32,7 +32,8 @@
     <canvas id="player-screen"></canvas>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
     
 
     
@@ -58,9 +59,14 @@
         <input type="text" id='player-word' autocomplete="off" autocorrect="off" >
     </form>
 
-    <div class='leaderboard-container'>
+    <div id='leaderboard-container'>
         <h2>LEADERBOARD</h2>
+        <div class='lb-header'>
+            <h3>Name</h3>
+            <h3>Score</h3>
+        </div>
         <ol id='leaderboard'></ol>
+        <div id='leaderboard-entry'></div>
     </div>
 
 </body>

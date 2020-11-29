@@ -1,6 +1,6 @@
 import "./styles/index.scss";
 import Game from './scripts/game';
-import * as firebaseAPI from './scripts/firebasedb';
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,12 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     playerWord.autofocus = true;
 
     inputSection.addEventListener('submit', handleSubmit);
-    const newGame = new Game(canvas, ctx, bgCtx, pCtx);
+    var newGame = new Game(canvas, ctx, bgCtx, pCtx);
     
     document.addEventListener("keypress", removeSplash);
 
     const startBtn = document.getElementById('start');
     startBtn.addEventListener("click", removeSplash);
+
+    document.addEventListener('keydown', restartGame)
     
     function removeSplash(e) {
         // debugger
@@ -44,8 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSection.reset();
     };
 
-    const leaderboard = document.getElementById('leaderboard');
-
+    function restartGame(e) {
+        if (newGame.gameOver) {
+            if (e.ctrlKey && (e.key === ' ' || e.key === 'Spacebar')) {
+                newGame = null;    
+                newGame = new Game(canvas, ctx, bgCtx, pCtx);
+                const playerWord = document.getElementById('player-word');
+                playerWord.autoFocus = true;
+                const inputSection = document.getElementById("input-section");
+                inputSection.style.display = 'block';
+                inputSection.reset();
+                newGame.start();
+                playerWord.focus();
+            }
+        }
+    }
 
 
 });

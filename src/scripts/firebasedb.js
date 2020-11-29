@@ -7,16 +7,48 @@ firebase.initializeApp({
     projectId: "the-empire-types-back",
 });
 
+        // var firebaseConfig = {
+        //     apiKey: "AIzaSyCwgZPZIAN-oBIcYnxU8cdoB07zheYEkek",
+        //     authDomain: "the-empire-types-back.firebaseapp.com",
+        //     databaseURL: "https://the-empire-types-back.firebaseio.com",
+        //     projectId: "the-empire-types-back",
+        //     storageBucket: "the-empire-types-back.appspot.com",
+        //     messagingSenderId: "1000485639768",
+        //     appId: "1:1000485639768:web:bb350ae944aba60c0cdc2d",
+        // };
+        // // Initialize Firebase
+        // firebase.initializeApp(firebaseConfig);
+
 var db = firebase.firestore();
 
 
 
+
+const fetchedScores = db.collection('hiscores').orderBy('score', 'desc').limit(10).get();
+
+var scores = [];
 export function getScores(){
-    return db.collection(hiscores).orderBy('score', 'desc').limit(10).get()
+    fetchedScores.then(snapshot => {
+        snapshot.docs.forEach( entry => {
+            scores.push( entry.data().score)
+        })
+    })
+    return fetchedScores;
+};
+
+export function checkScore(score){
+
+    let outcome = false;
+    scores.forEach(hiscore => {
+        if (score> hiscore) outcome = true
+    })
+
+    return outcome
 }
 
+
 export function addScore(name, score){
-    db.collection(hiscores).add({
+   return db.collection('hiscores').add({
         name: name,
         score: score
     })

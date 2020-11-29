@@ -1,6 +1,8 @@
 import Enemy from './enemy';
 import Background from './background';
 import Player from './player';
+import * as firebaseAPI from './firebasedb';
+
 
 export default class Game {
     constructor(canvas, ctx, bgCtx, pCtx) {
@@ -11,18 +13,25 @@ export default class Game {
         this.background = new Background(canvas, bgCtx, 1.0);
         this.focused = true;
         this.startGame = false;
+        this.gameOver = false;
         this.ships = [];
         this.player = new Player(canvas, pCtx);
         this.words = [];
         this.startPositions = [[96, 80], [172, 70], [63, 30], [120, 25], [197, 20]];
         this.usedStartPos = [];
+        
+        this.updateLeaderBoard = this.updateLeaderBoard.bind(this);
         this.animate = this.animate.bind(this);
         this.animateBackground = this.animateBackground.bind(this);
+        this.bgrunning = setInterval(this.animateBackground, 125);
         this.start = this.start.bind(this);
         this.createEnemy = this.createEnemy.bind(this);
         this.generateEnemies = this.generateEnemies.bind(this);
         this.generateAttacks = this.generateAttacks.bind(this);
         this.enemyAttack = this.enemyAttack.bind(this);
+        this.losingScreen = this.losingScreen.bind(this);
+        this.newHighScoreModal = this.newHighScoreModal.bind(this);
+        this.updateLeaderBoard();
     }
 
     animateBackground() {
@@ -52,8 +61,19 @@ export default class Game {
                 this.words.splice(i, 1);
             }
         }
-        requestAnimationFrame(this.animate);
+        // var animation = requestAnimationFrame(this.animate);
         
+        // if (this.player.heath <= 0) cancelAnimationFrame(animation);
+        
+        // if (this.player.health > 0) {
+            // setInterval(this.animateBackground, 125);
+            // var animation = requestAnimationFrame(this.animate);
+        // this.animate();
+        // } else {
+        //     cancelAnimationFrame(animation)
+        //     clearInterval(this.animateBackground);
+        //     this.losingScreen();
+        // }
     }
 
     start() {
@@ -66,6 +86,7 @@ export default class Game {
         playerWord.autofocus = true;
         }
         
+        var animation = requestAnimationFrame(this.start);
         window.onblur = () => this.focused = false;
         window.onfocus = () => {
             this.focused = true;
@@ -80,9 +101,18 @@ export default class Game {
         document.getElementById('bg-canvas').addEventListener('click', ()=> playerWord.focus());
         document.getElementById('player-screen').addEventListener('click', ()=> playerWord.focus());
 
-
-        setInterval(this.animateBackground, 125);
+        // if (!this.bgrunning){
+        // setInterval(this.animateBackground, 125);
+        // this.bgrunning = true;
+        // }
+        if (this.player.health > 0) {
         this.animate();
+        } else {
+            this.gameOver = true;
+            cancelAnimationFrame(animation);
+            clearInterval(this.bgrunning);
+            this.losingScreen();
+        }
     }
 
     createEnemy(canvas, ctx) {
@@ -132,5 +162,90 @@ export default class Game {
         }
     }
 
+    losingScreen(){
+        const hiscore = firebaseAPI.checkScore(this.player.score);
+        const form = document.getElementById('input-section');
+        const pCanvas = document.getElementById("player-screen");
+        const bgCanvas = document.getElementById("bg-canvas");
+        form.style.display = 'none';
+        // pCanvas.style.display = 'none';
+        // bgCanvas.style.display = 'none';
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.bgCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.pCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = "#FFFFFF";
+        this.ctx.font = '30px Red Rose';
+        this.ctx.textAlign = "center";
 
+        if (hiscore) {
+            this.newHighScoreModal();
+        } else {
+            this.ctx.fillText('Game Over', this.canvas.width/2, 100);
+        }
+
+        this.ctx.font = '25px Red Rose';
+        this.ctx.fillText('Your Score:', this.canvas.width/2, 150);
+        this.ctx.fillText(this.player.score, this.canvas.width/2, 190);
+
+        this.ctx.font = '20px Red Rose';
+        this.ctx.fillText('Press Ctrl+Space to Play Again', this.canvas.width/2, this.canvas.height/2)
+
+    }
+
+
+    updateLeaderBoard(){
+        const leaderboard = document.getElementById('leaderboard');
+        while (leaderboard.firstChild){
+            leaderboard.removeChiled(leaderBoard.firstChild)
+        }
+
+        firebaseAPI.getScores().then( query => {
+            const scores = query.docs;
+            scores.forEach(entry => {
+                const {name, score} = entry.data();
+                let newLi = document.createElement('li');
+                let newName = document.createElement('h3');
+                let newScore = document.createElement('h3');
+                newName.innerHTML = name.slice(0, 3);
+                newScore.innerHTML = score;
+                newLi.appendChild(newName);
+                newLi.appendChild(newScore);
+                newLi.setAttribute('class', 'lb-stat');
+                leaderboard.appendChild(newLi)
+            })
+        })
+    }
+
+    newHighScoreModal() {
+        this.ctx.fillStyle = "#FFFFFF";
+        this.ctx.font = '30px Red Rose';
+        this.ctx.textAlign = "center";
+        this.ctx.fillText('New High Score', this.canvas.width/2, 90);
+
+        this.ctx.font = '20px Red Rose';
+        // this.ctx.fillText('New High Score', this.canvas.width/2, this.canvas.height/2);
+
+        const  leaderboardEntry = document.getElementById('leaderboard-entry');
+        const newForm = document.createElement('form');
+        const newInput = document.createElement('input');
+        newInput.setAttribute('type', 'text');
+        newInput.setAttribute('value', '');
+        newInput.autoFocus = true;
+        newForm.appendChild(newInput);
+        newForm.addEventListener('submit', handleSubmit);
+        leaderboardEntry.appendChild(newForm);
+        const score = this.player.score;
+        newInput.focus();
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            firebaseAPI.addScore(newInput.value, score).then( () => { 
+            
+            while (leaderboardEntry.firstChild) {
+                leaderboardEntry.removeChild(leaderboardEntry.firstChild);
+            }
+            this.updateLeaderBoard();
+        });
+        }
+    }
 }
