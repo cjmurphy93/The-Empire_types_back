@@ -20,10 +20,8 @@ export default class Game {
         this.startPositions = [[96, 80], [172, 70], [63, 30], [120, 25], [197, 20]];
         this.usedStartPos = [];
         
-        this.updateLeaderBoard = this.updateLeaderBoard.bind(this);
         this.animate = this.animate.bind(this);
         this.animateBackground = this.animateBackground.bind(this);
-        this.bgrunning = setInterval(this.animateBackground, 125);
         this.start = this.start.bind(this);
         this.createEnemy = this.createEnemy.bind(this);
         this.generateEnemies = this.generateEnemies.bind(this);
@@ -31,6 +29,8 @@ export default class Game {
         this.enemyAttack = this.enemyAttack.bind(this);
         this.losingScreen = this.losingScreen.bind(this);
         this.newHighScoreModal = this.newHighScoreModal.bind(this);
+        this.updateLeaderBoard = this.updateLeaderBoard.bind(this);
+        this.bgrunning = setInterval(this.animateBackground, 125);
         this.updateLeaderBoard();
     }
 
@@ -176,6 +176,8 @@ export default class Game {
         this.ctx.fillStyle = "#FFFFFF";
         this.ctx.font = '30px Red Rose';
         this.ctx.textAlign = "center";
+        const leaderboard = document.getElementById("leaderboard-container");
+        leaderboard.style.display = 'flex';
 
         if (hiscore) {
             this.newHighScoreModal();
@@ -188,7 +190,7 @@ export default class Game {
         this.ctx.fillText(this.player.score, this.canvas.width/2, 190);
 
         this.ctx.font = '20px Red Rose';
-        this.ctx.fillText('Press Ctrl+Space to Play Again', this.canvas.width/2, this.canvas.height/2)
+        this.ctx.fillText('Press Ctrl+Space to Play Again', this.canvas.width/2, this.canvas.height - 100)
 
     }
 
@@ -196,7 +198,7 @@ export default class Game {
     updateLeaderBoard(){
         const leaderboard = document.getElementById('leaderboard');
         while (leaderboard.firstChild){
-            leaderboard.removeChiled(leaderBoard.firstChild)
+            leaderboard.removeChild(leaderboard.firstChild)
         }
 
         firebaseAPI.getScores().then( query => {
@@ -204,6 +206,7 @@ export default class Game {
             scores.forEach(entry => {
                 const {name, score} = entry.data();
                 let newLi = document.createElement('li');
+                let newStat = document.createElement('div');
                 let newName = document.createElement('h3');
                 let newScore = document.createElement('h3');
                 newName.innerHTML = name.slice(0, 3);
@@ -232,12 +235,8 @@ export default class Game {
         newInput.setAttribute('value', '');
         newInput.autoFocus = true;
         newForm.appendChild(newInput);
-        newForm.addEventListener('submit', handleSubmit);
-        leaderboardEntry.appendChild(newForm);
-        const score = this.player.score;
-        newInput.focus();
-        function handleSubmit(e) {
-            e.preventDefault();
+        newForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
 
             firebaseAPI.addScore(newInput.value, score).then( () => { 
             
@@ -246,6 +245,20 @@ export default class Game {
             }
             this.updateLeaderBoard();
         });
-        }
+        });
+        leaderboardEntry.appendChild(newForm);
+        const score = this.player.score;
+        newInput.focus();
+        // function handleSubmit(e) {
+        //     e.preventDefault();
+
+        //     firebaseAPI.addScore(newInput.value, score).then( () => { 
+            
+        //     while (leaderboardEntry.firstChild) {
+        //         leaderboardEntry.removeChild(leaderboardEntry.firstChild);
+        //     }
+        //     this.updateLeaderBoard();
+        // });
+        // }
     }
 }

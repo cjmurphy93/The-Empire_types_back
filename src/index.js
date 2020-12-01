@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // debugger
         if ((e.key === 'Enter') || (e.type === "click")) {
             const splash = document.getElementById("splash");
+            const leaderboard = document.getElementById("leaderboard-container");
+            leaderboard.style.display = 'none';
             splash.style.display = 'none';
             document.removeEventListener("keypress", removeSplash);
             startBtn.removeEventListener("click", removeSplash);
