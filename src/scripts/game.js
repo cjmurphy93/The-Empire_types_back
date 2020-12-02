@@ -165,11 +165,7 @@ export default class Game {
     losingScreen(){
         const hiscore = firebaseAPI.checkScore(this.player.score);
         const form = document.getElementById('input-section');
-        const pCanvas = document.getElementById("player-screen");
-        const bgCanvas = document.getElementById("bg-canvas");
         form.style.display = 'none';
-        // pCanvas.style.display = 'none';
-        // bgCanvas.style.display = 'none';
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.bgCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.pCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -195,70 +191,76 @@ export default class Game {
     }
 
 
-    updateLeaderBoard(){
-        const leaderboard = document.getElementById('leaderboard');
-        while (leaderboard.firstChild){
-            leaderboard.removeChild(leaderboard.firstChild)
-        }
-
-        firebaseAPI.getScores().then( query => {
-            const scores = query.docs;
-            scores.forEach(entry => {
-                const {name, score} = entry.data();
-                let newLi = document.createElement('li');
-                let newStat = document.createElement('div');
-                let newName = document.createElement('h3');
-                let newScore = document.createElement('h3');
-                newName.innerHTML = name.slice(0, 3);
-                newScore.innerHTML = score;
-                newLi.appendChild(newName);
-                newLi.appendChild(newScore);
-                newLi.setAttribute('class', 'lb-stat');
-                leaderboard.appendChild(newLi)
-            })
-        })
-    }
-
+    
     newHighScoreModal() {
         this.ctx.fillStyle = "#FFFFFF";
         this.ctx.font = '30px Red Rose';
         this.ctx.textAlign = "center";
         this.ctx.fillText('New High Score', this.canvas.width/2, 90);
-
+        
         this.ctx.font = '20px Red Rose';
         // this.ctx.fillText('New High Score', this.canvas.width/2, this.canvas.height/2);
-
+        
         const  leaderboardEntry = document.getElementById('leaderboard-entry');
         const newForm = document.createElement('form');
         const newInput = document.createElement('input');
         newInput.setAttribute('type', 'text');
         newInput.setAttribute('value', '');
+        newInput.setAttribute('maxlength', '3');
         newInput.autoFocus = true;
         newForm.appendChild(newInput);
-        newForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-
-            firebaseAPI.addScore(newInput.value, score).then( () => { 
-            
-            while (leaderboardEntry.firstChild) {
-                leaderboardEntry.removeChild(leaderboardEntry.firstChild);
-            }
-            this.updateLeaderBoard();
-        });
-        });
         leaderboardEntry.appendChild(newForm);
         const score = this.player.score;
         newInput.focus();
-        // function handleSubmit(e) {
-        //     e.preventDefault();
-
-        //     firebaseAPI.addScore(newInput.value, score).then( () => { 
+        newForm.addEventListener('submit', (e) => {
+            e.preventDefault();
             
-        //     while (leaderboardEntry.firstChild) {
-        //         leaderboardEntry.removeChild(leaderboardEntry.firstChild);
-        //     }
-        //     this.updateLeaderBoard();
-        // });
-        // }
+            firebaseAPI.addScore(newInput.value.toUpperCase(), score).then( () => { 
+                
+                while (leaderboardEntry.firstChild) {
+                    leaderboardEntry.removeChild(leaderboardEntry.firstChild);
+                }
+                this.updateLeaderBoard();
+            });
+        });
+        // function handleSubmit(e) {
+            //     e.preventDefault();
+            
+            //     firebaseAPI.addScore(newInput.value, score).then( () => { 
+                
+                //     while (leaderboardEntry.firstChild) {
+                    //         leaderboardEntry.removeChild(leaderboardEntry.firstChild);
+                    //     }
+                    //     this.updateLeaderBoard();
+                    // });
+                    // }
+    }
+                
+    updateLeaderBoard(){
+        const leaderboard = document.getElementById('leaderboard');
+        while (leaderboard.firstChild){
+            leaderboard.removeChild(leaderboard.firstChild)
+        }
+        
+        firebaseAPI.getScores().then( query => {
+            const scores = query.docs;
+            let rank = 1;
+            scores.forEach(entry => {
+                const {name, score} = entry.data();
+                let newLi = document.createElement('li');
+                let newRank = document.createElement('h3');
+                let newName = document.createElement('h3');
+                let newScore = document.createElement('h3');
+                newRank.innerHTML = rank;
+                newName.innerHTML = name.slice(0, 3);
+                newScore.innerHTML = score;
+                newLi.appendChild(newRank);
+                newLi.appendChild(newName);
+                newLi.appendChild(newScore);
+                newLi.setAttribute('class', 'lb-stat');
+                leaderboard.appendChild(newLi)
+                rank += 1;
+            })
+        })
     }
 }
