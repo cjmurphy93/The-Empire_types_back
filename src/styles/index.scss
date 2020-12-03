@@ -10,7 +10,7 @@ html, body {
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index: 200;
+    z-index: 100;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -19,6 +19,33 @@ html, body {
     background-image: url("../assets/space_bg2.jpg");
     background-repeat: repeat;
 
+}
+
+.splash-title {
+    top: 90px;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.by-line {
+    top: 140px;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: calc(50vh + 185px);
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 
@@ -40,7 +67,7 @@ html, body {
 
 #input-section {
     position: absolute;
-    z-index: 100;
+    z-index: 80;
     top: calc(100vh * (164/222));
     left: calc(100vw * (101/256));
     width: calc(100vw * (54/256));
@@ -58,6 +85,56 @@ html, body {
     text-align: center;
     font-size: calc(100vh * (7/222))
 }
+
+
+#leaderboard-container {
+  z-index: 100;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+}
+
+.lb-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+.lb-header-title {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+#leaderboard {
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 0;
+    margin: 0;
+    list-style-type: decimal;
+}
+
+.lb-stat {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 25px;
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+}
+
+
 
 
 
