@@ -22,22 +22,5 @@ export default class Background {
         this.tFrame += 1;
         if (this.bFrame > 5) this.bFrame = 0;
         if (this.tFrame > 4) this.tFrame = 0;
-        // this.y += this.speed;
-        // this.ctx.drawImage(
-        //   this.backgroundImage,
-        //   0,
-        //   this.y,
-        //   this.canvas.width,
-        //   this.canvas.height
-        // );
-        // this.ctx.drawImage(
-        //   this.backgroundImage,
-        //   0,
-        //   this.y - this.canvas.height,
-        //   this.canvas.width,
-        //   this.canvas.height
-        // );
-        // if (this.y === this.canvas.height) this.y = 0;
-
     };
 }

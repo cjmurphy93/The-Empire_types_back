@@ -4,29 +4,74 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property='og:title' content='The Empire Types Back!' />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content='https://www.connor-murphy.com/The-Empire-Types-Back/' />
     <meta property="og:image" content="https://cjmurphy93.github.io/The-Empire-Types-Back/src/assets/preview.jpg" />
     <meta property="og:description" content="A JS game where you type to destroy enemy ships." />
+    <meta name="twitter:card" content="summary_large_image">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Red+Rose&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
     <link rel="stylesheet" href="./dist/main.css" />
     <title>The Empire Types Back!</title>
 </head>
 
 <body>
     <div class="splash-page" id="splash">
-        <h1>The Empire Types Back!</h1>
-        <h3>Still in progress...</h3>
-        <p>Type in the words you see above a ship and press enter to destroy it!</p>
-        <button class="start-btn" id="start">START</button>
-        <h2>Click START or Press ENTER to Begin</h2>
+        <h1 class='splash-title'>The Empire Types Back!</h1>
+        <h3 class="by-line">By Connor Murphy</h3>
+        
+        <div class="instructions">
+            <p>Type in the words you see above a ship and press enter to destroy it!</p>
+            <button class="start-btn" id="start">START</button>
+            <h2>Click START or Press ENTER to Begin</h2>
+        </div>
     </div>
     <canvas id="bg-canvas"></canvas>
     <canvas id="ship-game"></canvas>
     <canvas id="player-screen"></canvas>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+    
+
+    
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCwgZPZIAN-oBIcYnxU8cdoB07zheYEkek",
+            authDomain: "the-empire-types-back.firebaseapp.com",
+            databaseURL: "https://the-empire-types-back.firebaseio.com",
+            projectId: "the-empire-types-back",
+            storageBucket: "the-empire-types-back.appspot.com",
+            messagingSenderId: "1000485639768",
+            appId: "1:1000485639768:web:bb350ae944aba60c0cdc2d",
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
     <script src="./dist/main.js"></script>
     <form id=input-section>
         <input type="text" id='player-word' autocomplete="off" autocorrect="off" >
     </form>
+
+    <div id='leaderboard-container'>
+        <h2>LEADERBOARD</h2>
+        <div class='lb-header'>
+            <h3 class='lb-header-title'>Rank</h3>
+            <h3 class='lb-header-title'>Name</h3>
+            <h3 class='lb-header-title'>Score</h3>
+        </div>
+        <ol id='leaderboard'></ol>
+        <div id='leaderboard-entry'></div>
+    </div>
 
 </body>
 

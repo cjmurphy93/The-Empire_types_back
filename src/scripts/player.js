@@ -7,6 +7,8 @@ export default class Player {
     this.navScreenFrames = [260, 316];
     this.nSF = 0;
     this.health = 10;
+    this.scoreFrames = [337, 328, 270, 277, 285, 292, 299, 306, 313, 320];
+    this.score = 0;
   }
 
 
@@ -26,5 +28,12 @@ export default class Player {
         if ( this.health <= 2 ) this.ctx.drawImage(this.pImg, 268, 561, 6, 3, ((105 / 256) * this.canvas.width), ((153 / 222) * this.canvas.height), ((6 / 256) * this.canvas.width), ((3 / 222) * this.canvas.height));
         if ( this.health <= 1 ) this.ctx.drawImage(this.pImg, 268, 561, 6, 3, ((97 / 256)  * this.canvas.width), ((153 / 222) * this.canvas.height), ((6 / 256 ) * this.canvas.width), ((3 / 222) * this.canvas.height));
         if ( this.health <= 0 ) this.ctx.drawImage(this.pImg, 268, 561, 6, 3, ((89 / 256) * this.canvas.width), ((153 / 222) * this.canvas.height), ((6 / 256) * this.canvas.width), ((3 / 222) * this.canvas.height));
+
+      let tens = Math.floor(this.score / 10);
+      let ones = this.score % 10;
+      
+      this.ctx.drawImage(this.pImg, this.scoreFrames[tens], 571, 6, 7, ((169 / 256) * this.canvas.width), ((200 / 222) * this.canvas.height), ((6 / 256) * this.canvas.width), ((7 / 222) * this.canvas.height));
+      this.ctx.drawImage(this.pImg, this.scoreFrames[ones], 571, 6, 7, ((177 / 256) * this.canvas.width), ((200 / 222) * this.canvas.height), ((6 / 256) * this.canvas.width), ((7 / 222) * this.canvas.height));
+      
   }
 }

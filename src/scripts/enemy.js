@@ -26,11 +26,9 @@ export default class Enemy {
         this.ctx.drawImage(this.shipImg, ( this.dx * this.canvas.width), ((this.shipPos[1] / 222) * this.canvas.height), (this.dz * (this.canvas.width * (40 / 256))), (this.dz * (this.canvas.height * (40 / 222))));
         this.ctx.fillStyle = "#FFFFFF";
         this.ctx.font = '20px Red Rose';
-        // const wordPos = (100 - (this.word.length * 20)) / 2;
         this.ctx.textAlign = "center";
         this.ctx.fillText(this.word, (( this.dx * this.canvas.width) + (this.dz *(this.canvas.width * 20/256))), ((this.shipPos[1] / 222) * this.canvas.height));
         this.attack();
-        // debugger
     };
 
     animate(){
@@ -52,7 +50,6 @@ export default class Enemy {
                     ((((this.shipPos[1] + 25) / 222) * this.canvas.height)), 
                     (this.canvas.width * 245/256), 
                     (this.canvas.height * ((222-(this.shipPos[1] + 25))/ 222)));
-                    // debugger
                     this.atf += 1;
                     if (this.atf > 20) {
                         this.attacking = false;
