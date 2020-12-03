@@ -29,10 +29,11 @@ export function signIn() {
         
 var db = firebase.firestore();
 
-const fetchedScores = db.collection('hiscores').orderBy('score', 'desc').limit(10).get();
 
 var scores = [];
 export function getScores(){
+    scores = [];
+    const fetchedScores = db.collection('hiscores').orderBy('score', 'desc').limit(10).get();
     fetchedScores.then(snapshot => {
         snapshot.docs.forEach( entry => {
             scores.push( entry.data().score)
