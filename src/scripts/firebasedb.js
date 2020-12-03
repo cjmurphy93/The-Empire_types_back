@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/auth";
 
 firebase.initializeApp({
     apiKey: "AIzaSyCwgZPZIAN-oBIcYnxU8cdoB07zheYEkek",
@@ -19,10 +20,14 @@ firebase.initializeApp({
         // // Initialize Firebase
         // firebase.initializeApp(firebaseConfig);
 
+        
+export function signIn() {
+    firebase.auth().signInAnonymously();            
+}
+
+
+        
 var db = firebase.firestore();
-
-
-
 
 const fetchedScores = db.collection('hiscores').orderBy('score', 'desc').limit(10).get();
 
@@ -54,4 +59,16 @@ export function addScore(name, score){
     })
     .then( () => true)
     .catch( () => false )
+}
+
+export function signOut() {
+    firebase.auth().signOut().then( () => {
+        db.collection('hiscores').add({
+        name: OUT,
+        score: 0
+    })
+    .then( () => true)
+    .catch( () => false );
+    }
+);
 }

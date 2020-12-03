@@ -1,9 +1,11 @@
 import "./styles/index.scss";
 import Game from './scripts/game';
+import * as firebaseAPI from './scripts/firebasedb';
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    firebaseAPI.signIn();
     const canvas = document.getElementById("ship-game");
     const ctx = canvas.getContext('2d');
     const bgCanvas = document.getElementById("bg-canvas");
@@ -25,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener("click", removeSplash);
 
     document.addEventListener('keydown', restartGame)
+
     
+
     function removeSplash(e) {
         // debugger
         if ((e.key === 'Enter') || (e.type === "click")) {
@@ -51,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function restartGame(e) {
         if (newGame.gameOver) {
             if (e.ctrlKey && (e.key === ' ' || e.key === 'Spacebar')) {
+            const leaderboard = document.getElementById("leaderboard-container");
+            leaderboard.style.display = 'none';
                 newGame = null;    
                 newGame = new Game(canvas, ctx, bgCtx, pCtx);
                 const playerWord = document.getElementById('player-word');
@@ -64,5 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // const body = document.getElementsByTagName('BODY')
+    // body.addEventListener('beforeunload', firebase.signOut)
+    // body.addEventListener('unload', e => {
+    //         firebaseAPI.signOut();
+    //     });
+    });
 
-});
+    // window.onunload = firebaseAPI.signOut
