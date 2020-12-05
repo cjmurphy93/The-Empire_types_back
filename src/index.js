@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     function removeSplash(e) {
-        // debugger
         if ((e.key === 'Enter') || (e.type === "click")) {
             const splash = document.getElementById("splash");
             const leaderboard = document.getElementById("leaderboard-container");

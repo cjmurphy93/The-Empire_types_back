@@ -1,8 +1,7 @@
 export default class Background {
-    constructor(canvas, ctx, speed) {
+    constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
-        // this.speed = speed;
         this.bImage = new Image();
         this.bImage.src = './src/assets/spritesheet.png';
         this.height = this.canvas.height;
@@ -11,7 +10,6 @@ export default class Background {
         this.bBFrames = [2, 260, 518, 776, 1034, 1292];
         this.tFrame = 0;
         this.bFrame = 0;
-        // this.y = 0;
     };
 
     animate() {

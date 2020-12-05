@@ -8,23 +8,10 @@ firebase.initializeApp({
     projectId: "the-empire-types-back",
 });
 
-        // var firebaseConfig = {
-        //     apiKey: "AIzaSyCwgZPZIAN-oBIcYnxU8cdoB07zheYEkek",
-        //     authDomain: "the-empire-types-back.firebaseapp.com",
-        //     databaseURL: "https://the-empire-types-back.firebaseio.com",
-        //     projectId: "the-empire-types-back",
-        //     storageBucket: "the-empire-types-back.appspot.com",
-        //     messagingSenderId: "1000485639768",
-        //     appId: "1:1000485639768:web:bb350ae944aba60c0cdc2d",
-        // };
-        // // Initialize Firebase
-        // firebase.initializeApp(firebaseConfig);
-
-        
+     
 export function signIn() {
     firebase.auth().signInAnonymously();            
 }
-
 
         
 var db = firebase.firestore();
