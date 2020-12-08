@@ -5,7 +5,7 @@ import * as firebaseAPI from './scripts/firebasedb';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    firebaseAPI.signIn();
+    // firebaseAPI.signIn();
     const canvas = document.getElementById("ship-game");
     const ctx = canvas.getContext('2d');
     const bgCanvas = document.getElementById("bg-canvas");

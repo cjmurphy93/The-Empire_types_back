@@ -18,8 +18,11 @@ var db = firebase.firestore();
 
 
 var scores = [];
+
 export function getScores(){
     scores = [];
+    var user = firebase.auth().currentUser;
+    if (!user) signIn();
     const fetchedScores = db.collection('hiscores').orderBy('score', 'desc').limit(10).get();
     fetchedScores.then(snapshot => {
         snapshot.docs.forEach( entry => {
@@ -41,9 +44,12 @@ export function checkScore(score){
 
 
 export function addScore(name, score){
+   var d = new Date();
+   var n = d.toDateString();
    return db.collection('hiscores').add({
         name: name,
-        score: score
+        score: score,
+        date: n
     })
     .then( () => true)
     .catch( () => false )
