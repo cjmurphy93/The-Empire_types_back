@@ -11,19 +11,28 @@ export default class Enemy {
         this.shipImg.src = "./src/assets/tie_fighter.png";
         this.sprites = new Image();
         this.sprites.src = './src/assets/spritesheet.png';
+        this.explosion = new Image();
+        this.explosion.src = './src/assets/enemy_sheet.png';
         this.shipPos = shipPos;
         this.dz = 0.1;
         this.dx = (this.shipPos[0] / 256);
         this.attacking = false;
         this.atf = 0;
+        this.expoding = false;
+        this.explodingFrames = [
+
+        ]
 
         this.draw = this.draw.bind(this);
         this.attack = this.attack.bind(this);
     };
 
     draw() {
-        
-        this.ctx.drawImage(this.shipImg, ( this.dx * this.canvas.width), ((this.shipPos[1] / 222) * this.canvas.height), (this.dz * (this.canvas.width * (40 / 256))), (this.dz * (this.canvas.height * (40 / 222))));
+        if (!this.exploding) {
+            this.ctx.drawImage(this.shipImg, ( this.dx * this.canvas.width), ((this.shipPos[1] / 222) * this.canvas.height), (this.dz * (this.canvas.width * (40 / 256))), (this.dz * (this.canvas.height * (40 / 222))));
+        } else {
+            this.ctx.drawImage(this.sprites, )
+        }
         this.ctx.fillStyle = "#FFFFFF";
         this.ctx.font = '20px Red Rose';
         this.ctx.textAlign = "center";
