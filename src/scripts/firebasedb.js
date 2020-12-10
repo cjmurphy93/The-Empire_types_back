@@ -8,31 +8,21 @@ firebase.initializeApp({
     projectId: "the-empire-types-back",
 });
 
-        // var firebaseConfig = {
-        //     apiKey: "AIzaSyCwgZPZIAN-oBIcYnxU8cdoB07zheYEkek",
-        //     authDomain: "the-empire-types-back.firebaseapp.com",
-        //     databaseURL: "https://the-empire-types-back.firebaseio.com",
-        //     projectId: "the-empire-types-back",
-        //     storageBucket: "the-empire-types-back.appspot.com",
-        //     messagingSenderId: "1000485639768",
-        //     appId: "1:1000485639768:web:bb350ae944aba60c0cdc2d",
-        // };
-        // // Initialize Firebase
-        // firebase.initializeApp(firebaseConfig);
-
-        
+     
 export function signIn() {
     firebase.auth().signInAnonymously();            
 }
-
 
         
 var db = firebase.firestore();
 
 
 var scores = [];
+
 export function getScores(){
     scores = [];
+    var user = firebase.auth().currentUser;
+    if (!user) signIn();
     const fetchedScores = db.collection('hiscores').orderBy('score', 'desc').limit(10).get();
     fetchedScores.then(snapshot => {
         snapshot.docs.forEach( entry => {
@@ -54,9 +44,12 @@ export function checkScore(score){
 
 
 export function addScore(name, score){
+   var d = new Date();
+   var n = d.toDateString();
    return db.collection('hiscores').add({
         name: name,
-        score: score
+        score: score,
+        date: n
     })
     .then( () => true)
     .catch( () => false )

@@ -51,29 +51,11 @@ export default class Game {
             const ship = this.ships[i];
             if (ship.rendered){
                 ship.animate();
-                // if (ship.dz >= 1) {
-                //     this.player.health -= 1;
-                //     ship.attacking = true;
-                //     // debugger
-                // }
             } else {
+                this.startPositions.push(this.ships[i].shipPos);
                 this.ships.splice(i, 1);
-                this.words.splice(i, 1);
             }
         }
-        // var animation = requestAnimationFrame(this.animate);
-        
-        // if (this.player.heath <= 0) cancelAnimationFrame(animation);
-        
-        // if (this.player.health > 0) {
-            // setInterval(this.animateBackground, 125);
-            // var animation = requestAnimationFrame(this.animate);
-        // this.animate();
-        // } else {
-        //     cancelAnimationFrame(animation)
-        //     clearInterval(this.animateBackground);
-        //     this.losingScreen();
-        // }
     }
 
     start() {
@@ -101,10 +83,6 @@ export default class Game {
         document.getElementById('bg-canvas').addEventListener('click', ()=> playerWord.focus());
         document.getElementById('player-screen').addEventListener('click', ()=> playerWord.focus());
 
-        // if (!this.bgrunning){
-        // setInterval(this.animateBackground, 125);
-        // this.bgrunning = true;
-        // }
         if (this.player.health > 0) {
         this.animate();
         } else {
@@ -147,7 +125,7 @@ export default class Game {
 
     enemyAttack() {
         let ship = this.ships[Math.floor(Math.random() * this.ships.length)];
-        if (!ship.attacking && ship.dz >= 1) {
+        if ((!ship.attacking && !ship.exploding) && ship.dz >= 1) {
             ship.attacking = true;
             this.player.health -=1;
         }
@@ -156,8 +134,8 @@ export default class Game {
     checkWord(word) {
         let i = this.words.indexOf(word);
         if (i != -1) {
-            this.startPositions.push(this.ships[i].shipPos);
-            this.ships[i].rendered = false;
+            this.words.splice(i, 1);
+            this.ships[i].exploding = true;
             this.player.score += 1;
         }
     }
@@ -197,10 +175,8 @@ export default class Game {
         this.ctx.font = '30px Red Rose';
         this.ctx.textAlign = "center";
         this.ctx.fillText('New High Score', this.canvas.width/2, 90);
-        
+
         this.ctx.font = '20px Red Rose';
-        // this.ctx.fillText('New High Score', this.canvas.width/2, this.canvas.height/2);
-        
         const  leaderboardEntry = document.getElementById('leaderboard-entry');
         const newForm = document.createElement('form');
         const newInput = document.createElement('input');
@@ -223,17 +199,6 @@ export default class Game {
                 this.updateLeaderBoard();
             });
         });
-        // function handleSubmit(e) {
-            //     e.preventDefault();
-            
-            //     firebaseAPI.addScore(newInput.value, score).then( () => { 
-                
-                //     while (leaderboardEntry.firstChild) {
-                    //         leaderboardEntry.removeChild(leaderboardEntry.firstChild);
-                    //     }
-                    //     this.updateLeaderBoard();
-                    // });
-                    // }
     }
                 
     updateLeaderBoard(){
