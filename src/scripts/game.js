@@ -52,8 +52,8 @@ export default class Game {
             if (ship.rendered){
                 ship.animate();
             } else {
+                this.startPositions.push(this.ships[i].shipPos);
                 this.ships.splice(i, 1);
-                this.words.splice(i, 1);
             }
         }
     }
@@ -125,7 +125,7 @@ export default class Game {
 
     enemyAttack() {
         let ship = this.ships[Math.floor(Math.random() * this.ships.length)];
-        if (!ship.attacking && ship.dz >= 1) {
+        if ((!ship.attacking && !ship.exploding) && ship.dz >= 1) {
             ship.attacking = true;
             this.player.health -=1;
         }
@@ -134,8 +134,8 @@ export default class Game {
     checkWord(word) {
         let i = this.words.indexOf(word);
         if (i != -1) {
-            this.startPositions.push(this.ships[i].shipPos);
-            this.ships[i].rendered = false;
+            this.words.splice(i, 1);
+            this.ships[i].exploding = true;
             this.player.score += 1;
         }
     }
