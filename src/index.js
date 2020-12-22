@@ -62,12 +62,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
-  // const body = document.getElementsByTagName('BODY')
-  // body.addEventListener('beforeunload', firebase.signOut)
-  // body.addEventListener('unload', e => {
-  //         firebaseAPI.signOut();
-  //     });
 });
-
-// window.onunload = firebaseAPI.signOut
