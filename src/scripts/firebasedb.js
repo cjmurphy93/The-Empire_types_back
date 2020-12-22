@@ -56,17 +56,17 @@ export function addScore(name, score) {
     .catch(() => false);
 }
 
-export function signOut() {
-  firebase
-    .auth()
-    .signOut()
-    .then(() => {
-      db.collection("hiscores")
-        .add({
-          name: OUT,
-          score: 0,
-        })
-        .then(() => true)
-        .catch(() => false);
-    });
-}
+// export function signOut() {
+//   firebase
+//     .auth()
+//     .signOut()
+//     .then(() => {
+//       db.collection("hiscores")
+//         .add({
+//           name: OUT,
+//           score: 0,
+//         })
+//         .then(() => true)
+//         .catch(() => false);
+//     });
+// }
