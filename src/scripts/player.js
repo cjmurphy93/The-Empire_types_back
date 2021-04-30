@@ -13,7 +13,6 @@ export default class Player {
 
     this.shipNoise.loop = true;
     this.shipNoise.volume = 0.35;
-    this.shipNoise.play();
   }
 
   animate() {

@@ -92,7 +92,9 @@ export default class Game {
 
     if (this.player.health > 0) {
       this.animate();
+      this.player.shipNoise.play();
     } else {
+      this.player.shipNoise.pause();
       this.gameOver = true;
       cancelAnimationFrame(animation);
       clearInterval(this.bgrunning);
