@@ -9,6 +9,11 @@ export default class Player {
     this.health = 10;
     this.scoreFrames = [337, 328, 270, 277, 285, 292, 299, 306, 313, 320];
     this.score = 0;
+    this.shipNoise = new Audio("./src/assets/soundFX/xwingloop.wav");
+
+    this.shipNoise.loop = true;
+    this.shipNoise.volume = 0.35;
+    this.shipNoise.play();
   }
 
   animate() {
