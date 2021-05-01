@@ -23,9 +23,13 @@ export default class Enemy {
     this.exf = 0;
     this.flyingNoise = new Audio("./src/assets/soundFX/tie_fighter_noise.wav");
     this.flyingNoiseOn = false;
-    this.flyingNoise.volume = 0.15;
+    this.flyingNoise.volume = 0.1;
     this.laserNoise = new Audio("./src/assets/soundFX/blaster.wav");
     this.laserNoiseOn = false;
+    this.laserNoise.volume = 0.2;
+    this.explosionNoise = new Audio("src/assets/soundFX/explosion1.wav");
+    this.explosionNoiseOn = false;
+    this.explosionNoise.volume = 0.05;
 
     this.draw = this.draw.bind(this);
     this.attack = this.attack.bind(this);
@@ -55,6 +59,10 @@ export default class Enemy {
       }
       this.attack();
     } else {
+      if (!this.explosionNoiseOn) {
+        this.explosionNoiseOn = true;
+        this.explosionNoise.play();
+      }
       this.ctx.drawImage(
         this.explosion,
         this.explodingFrames[this.exf],
@@ -80,6 +88,7 @@ export default class Enemy {
       }
       this.draw();
       if (this.exploding) this.exf += 1;
+
       if (this.exf >= 7) this.rendered = false;
     }
   }
