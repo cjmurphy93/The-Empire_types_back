@@ -21,6 +21,11 @@ export default class Enemy {
     this.exploding = false;
     this.explodingFrames = [479, 511, 545, 583, 626, 667, 402, 440];
     this.exf = 0;
+    this.flyingNoise = new Audio("./src/assets/soundFX/tie_fighter_noise.wav");
+    this.flyingNoiseOn = false;
+    this.flyingNoise.volume = 0.15;
+    this.laserNoise = new Audio("./src/assets/soundFX/blaster.wav");
+    this.laserNoiseOn = false;
 
     this.draw = this.draw.bind(this);
     this.attack = this.attack.bind(this);
@@ -44,6 +49,10 @@ export default class Enemy {
           this.dz * ((this.canvas.width * 20) / 256),
         (this.shipPos[1] / 222) * this.canvas.height
       );
+      if (!this.flyingNoiseOn) {
+        this.flyingNoiseOn = true;
+        this.flyingNoise.play();
+      }
       this.attack();
     } else {
       this.ctx.drawImage(
@@ -66,6 +75,9 @@ export default class Enemy {
         this.dz += this.speed;
         this.dx -= 0.001;
       }
+      if (this.dz > 1) {
+        this.flyingNoise.pause();
+      }
       this.draw();
       if (this.exploding) this.exf += 1;
       if (this.exf >= 7) this.rendered = false;
@@ -75,6 +87,10 @@ export default class Enemy {
   attack() {
     if (this.dz >= 1) {
       if (this.attacking) {
+        if (!this.laserNoiseOn) {
+          this.laserNoiseOn = true;
+          this.laserNoise.play();
+        }
         this.ctx.drawImage(
           this.sprites,
           771,
@@ -91,6 +107,8 @@ export default class Enemy {
         if (this.atf > 20) {
           this.attacking = false;
           this.atf = 0;
+          // this.laserNoise.pause();
+          this.laserNoiseOn = false;
         }
       }
     }

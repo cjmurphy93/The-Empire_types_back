@@ -13,7 +13,7 @@ export default class Player {
 
     // this.shipNoise.loop = true;
     this.shipNoiseOn = false;
-    this.shipNoise.volume = 0.35;
+    this.shipNoise.volume = 0.02;
     // if (!this.shipNoiseOn) {
     //   this.shipNoiseOn = true;
     //   this.shipNoise.play();
