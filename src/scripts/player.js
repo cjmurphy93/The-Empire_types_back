@@ -9,6 +9,22 @@ export default class Player {
     this.health = 10;
     this.scoreFrames = [337, 328, 270, 277, 285, 292, 299, 306, 313, 320];
     this.score = 0;
+    this.shipNoise = new Audio("./src/assets/soundFX/xwingloop.wav");
+
+    // this.shipNoise.loop = true;
+    this.shipNoiseOn = false;
+    this.shipNoise.volume = 0.02;
+    // if (!this.shipNoiseOn) {
+    //   this.shipNoiseOn = true;
+    //   this.shipNoise.play();
+    // }
+    // this.shipNoise.addEventListener("timeupdate", function () {
+    //   var buffer = 0.04;
+    //   if (this.currentTime > this.duration - buffer) {
+    //     this.currentTime = 0;
+    //     this.play();
+    //   }
+    // });
   }
 
   animate() {
