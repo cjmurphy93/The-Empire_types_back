@@ -92,15 +92,6 @@ export default class Game {
 
     if (this.player.health > 0) {
       this.animate();
-      // this.player.shipNoise.play();
-      // var buffer = 0.6;
-      // if (
-      //   this.player.shipNoise.currentTime >
-      //   this.player.shipNoise.duration - buffer
-      // ) {
-      //   this.player.shipNoise.currentTime = 0;
-      //   this.player.shipNoise.play();
-      // }
       this.player.playShipNoise();
     } else {
       this.player.shipNoise.pause();
@@ -122,17 +113,21 @@ export default class Game {
   }
 
   generateEnemies() {
+    // let dificulty = Math.floor(10000 - this.player.score * 50);
+    // let delay = Math.floor(Math.random() * dificulty);
     let delay = Math.floor(Math.random() * 5000);
     if (this.focused) {
       setTimeout(() => {
         this.createEnemy(this.canvas, this.ctx);
         this.generateEnemies();
+        // }, delay);
+        // }, delay - this.player.score);
       }, delay - 0.2);
     }
   }
 
   generateAttacks() {
-    let delay = Math.floor(Math.random() * 5000);
+    let delay = Math.floor(Math.random() * 7000);
     if (this.focused) {
       setTimeout(() => {
         if (this.ships.length) this.enemyAttack();
@@ -202,6 +197,7 @@ export default class Game {
     newInput.setAttribute("type", "text");
     newInput.setAttribute("value", "");
     newInput.setAttribute("maxlength", "3");
+    newInput.setAttribute("minlength", "3");
     newInput.autoFocus = true;
     newForm.appendChild(newInput);
     leaderboardEntry.appendChild(newForm);
