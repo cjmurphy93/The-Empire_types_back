@@ -91,28 +91,17 @@ export default class Game {
       .addEventListener("click", () => playerWord.focus());
 
     if (this.player.health > 0) {
-      // var shipNoise = new Audio("./src/assets/soundFX/xwingloop.wav");
-      // if (!this.player.shipNoiseOn) {
-      // this.player.shipNoiseOn = true;
-      // this.shipNoise.play();
-      // }
-      // this.player.shipNoise.addEventListener("timeupdate", function () {
-      // var buffer = 0.04;
-      // if (this.currentTime > this.duration - buffer) {
-      // this.currentTime = 0;
-      // this.play();
-      // }
-      // });
       this.animate();
-      this.player.shipNoise.play();
-      var buffer = 0.6;
-      if (
-        this.player.shipNoise.currentTime >
-        this.player.shipNoise.duration - buffer
-      ) {
-        this.player.shipNoise.currentTime = 0;
-        this.player.shipNoise.play();
-      }
+      // this.player.shipNoise.play();
+      // var buffer = 0.6;
+      // if (
+      //   this.player.shipNoise.currentTime >
+      //   this.player.shipNoise.duration - buffer
+      // ) {
+      //   this.player.shipNoise.currentTime = 0;
+      //   this.player.shipNoise.play();
+      // }
+      this.player.playShipNoise();
     } else {
       this.player.shipNoise.pause();
       this.gameOver = true;

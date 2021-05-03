@@ -10,21 +10,9 @@ export default class Player {
     this.scoreFrames = [337, 328, 270, 277, 285, 292, 299, 306, 313, 320];
     this.score = 0;
     this.shipNoise = new Audio("./src/assets/soundFX/xwingloop.wav");
-
-    // this.shipNoise.loop = true;
     this.shipNoiseOn = false;
     this.shipNoise.volume = 0.02;
-    // if (!this.shipNoiseOn) {
-    //   this.shipNoiseOn = true;
-    //   this.shipNoise.play();
-    // }
-    // this.shipNoise.addEventListener("timeupdate", function () {
-    //   var buffer = 0.04;
-    //   if (this.currentTime > this.duration - buffer) {
-    //     this.currentTime = 0;
-    //     this.play();
-    //   }
-    // });
+    this.playShipNoise = this.playShipNoise.bind(this);
   }
 
   animate() {
@@ -199,5 +187,14 @@ export default class Player {
       (6 / 256) * this.canvas.width,
       (7 / 222) * this.canvas.height
     );
+  }
+
+  playShipNoise() {
+    this.shipNoise.play();
+    var buffer = 0.6;
+    if (this.shipNoise.currentTime > this.shipNoise.duration - buffer) {
+      this.shipNoise.currentTime = 0;
+      this.shipNoise.play();
+    }
   }
 }
