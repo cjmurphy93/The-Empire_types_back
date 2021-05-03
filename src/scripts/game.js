@@ -198,6 +198,7 @@ export default class Game {
     newInput.setAttribute("value", "");
     newInput.setAttribute("maxlength", "3");
     newInput.setAttribute("minlength", "3");
+    newInput.setAttribute("class", "hs-input");
     newInput.autoFocus = true;
     newForm.appendChild(newInput);
     leaderboardEntry.appendChild(newForm);
@@ -205,13 +206,14 @@ export default class Game {
     newInput.focus();
     newForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      firebaseAPI.addScore(newInput.value.toUpperCase(), score).then(() => {
-        while (leaderboardEntry.firstChild) {
-          leaderboardEntry.removeChild(leaderboardEntry.firstChild);
-        }
-        this.updateLeaderBoard();
-      });
+      if (newInput.value.length === 3) {
+        firebaseAPI.addScore(newInput.value.toUpperCase(), score).then(() => {
+          while (leaderboardEntry.firstChild) {
+            leaderboardEntry.removeChild(leaderboardEntry.firstChild);
+          }
+          this.updateLeaderBoard();
+        });
+      }
     });
   }
 
