@@ -56,6 +56,8 @@ body {
 #ship-game {
   position: absolute;
   z-index: 10;
+  width: 100%;
+  height: 100%;
 }
 
 #player-screen {
@@ -83,6 +85,16 @@ body {
   text-align: center;
   font-size: calc(100vh * (7 / 222));
 }
+.hs-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-top: 1vh;
+  background: transparent;
+  color: white;
+  text-align: center;
+  font-size: calc(100vh * (7 / 222));
+}
 
 #leaderboard-container {
   z-index: 100;
@@ -94,6 +106,11 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background: transparent;
+
+  h2 {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .lb-header {
